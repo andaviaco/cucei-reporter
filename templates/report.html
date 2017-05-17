@@ -7,10 +7,10 @@
 <section class="section">
     <div class="container">
         <h1 class="title">Formulario de Reporte</h1>
-    </div>
-    <hr>
-    <div class="container">
-        <h3 class="title is-3">Maestro: Ávila Acosta, Andrés</h3>
+
+        <hr>
+
+        <h2 class="title is-4">Profesor: {{g.user.name}}</h2>
         <form method="post">
             <div class="columns">
                 <div class="column">
@@ -87,13 +87,71 @@
                             <div class="field">
                                 <p class="control">
                                     <textarea
-                                        class="textarea "
+                                        class="textarea"
                                         name="students[comments]"
                                         placeholder="Comentarios"
-                                        rows="3"
+                                        rows="1"
                                     ></textarea>
                                 </p>
                             </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="field">
+                                <p class="control">
+                                    <input class="input" type="text" name="students" placeholder="Código">
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="field">
+                                <p class="control">
+                                    <input class="input" type="text" name="students[name]" placeholder="Nombre">
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="field">
+                                <p class="control">
+                                    <label class="radio">
+                                        <input type="radio" name="students[problem]" value="nonattendance">
+                                        Faltas
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="students[problem]" value="assignments">
+                                        Practicas
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="students[problem]" value="other">
+                                        Otros
+                                    </label>
+                                </p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="field">
+                                <p class="control">
+                                    <textarea
+                                        class="textarea"
+                                        name="students[comments]"
+                                        placeholder="Comentarios"
+                                        rows="1"
+                                    ></textarea>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button type="button" class="button is-success is-outlined">
+                                <span class="icon is-small">
+                                    <i class="fa fa-plus"></i>
+                                </span>
+                                <span>Agregar Alumno</span>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -106,7 +164,7 @@
                 <div class="field">
                     <p class="control">
                         <label class="radio">
-                            <input type="radio" name="students[priority]" value="low">
+                            <input type="radio" name="priority" value="low" checked="checked">
                             Baja
                         </label>
                     </p>
@@ -117,7 +175,7 @@
                 <div class="field">
                     <p class="control">
                         <label class="radio">
-                            <input type="radio" name="students[priority]" value="medium">
+                            <input type="radio" name="priority" value="medium">
                             Moderada
                         </label>
                     </p>
@@ -128,7 +186,7 @@
                 <div class="field">
                     <p class="control">
                         <label class="radio">
-                            <input type="radio" name="students[priority]" value="high">
+                            <input type="radio" name="priority" value="high">
                             Alta
                         </label>
                     </p>
