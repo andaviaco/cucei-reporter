@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash
-from flask_login import login_user, login_required, current_user
+from flask_login import login_user, logout_user, login_required, current_user
 
 from reporter import app
 from models import User
@@ -25,6 +25,12 @@ def login():
         return redirect(url_for('index'))
     else:
         return redirect(url_for('index'))
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 @app.route('/report', methods=['GET', 'POST'])
 @login_required

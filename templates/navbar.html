@@ -1,0 +1,18 @@
+<nav class="nav">
+    <div class="container">
+        <div class="nav-left">
+            <a class="nav-item" href="{{url_for('index')}}">
+                Reporter
+            </a>
+        </div>
+
+        <div class="nav-right">
+            {% if g.user.is_authenticated %}
+            <a class="nav-item" href="{{url_for('logout')}}">
+                Salir
+            </a>
+            {% endif %}
+        </div>
+
+    </div>
+</nav>
