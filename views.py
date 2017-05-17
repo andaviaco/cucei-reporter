@@ -9,9 +9,13 @@ def index():
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        pass
+        return redirect(url_for('report'))
     else:
         return redirect(url_for('index'))
+
+@app.route('/report/')
+def report():
+    return render_template('report.html')
 
 @app.errorhandler(404)
 def page_not_found(error):
