@@ -1,8 +1,15 @@
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
+from flask_mail import Message
 
-from reporter import app
+from reporter import app, mail
 from models import User
+
+PRIORITY_MAP = {
+    'low': 'baja',
+    'medium': 'media',
+    'high': 'alta',
+}
 
 @app.route('/')
 def index():
@@ -36,7 +43,30 @@ def logout():
 @login_required
 def report():
     if request.method == 'POST':
-        print(request.form)
+        students = [
+            {
+                'code': 43123523,
+                'name': 'Juanito Perez',
+                'problem': 'Otros',
+                'comments': 'Es muy flojo',
+            },
+            {
+                'code': 63453563,
+                'name': 'Pedrito Martinez',
+                'problem': 'Faltas',
+                'comments': 'No viene',
+            },
+        ]
+        priority = PRIORITY_MAP[request.form.get('priority')]
+        send_email(
+            name=current_user.name,
+            code=request.form.get('code'),
+            subject=request.form.get('subject'),
+            section=request.form.get('section'),
+            priority=priority.upper(),
+            students=students
+        )
+
         return render_template('report.html')
     else:
         return render_template('report.html')
@@ -44,3 +74,13 @@ def report():
 @app.errorhandler(404)
 def page_not_found(error):
     return redirect(url_for('index'))
+
+
+def send_email(**data):
+    msg_subject = '[{}] Reporte de Profesor'.format(data['priority'])
+    msg = Message(msg_subject,
+        recipients=[app.config['MAIL_DEFAULT_RECIPIENT']],
+        html=render_template('email.html', **data)
+    )
+
+    mail.send(msg)

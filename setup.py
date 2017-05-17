@@ -14,8 +14,9 @@ setup(
     install_requires=[
         'Flask==0.12',
         'Flask-SQLAlchemy==2.2',
-        'sqlalchemy==1.1.9',
         'Flask-Login==0.4.0',
+        'Flask-Mail==0.9.1',
+        'sqlalchemy==1.1.9',
         'unicodecsv',
     ],
     zip_safe=False

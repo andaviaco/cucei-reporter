@@ -1,12 +1,16 @@
 from flask import Flask, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
+from flask_mail import Mail
 
 app = Flask(__name__)
 
 app.config.from_envvar('REPORTER_LOCAL_SETTINGS', silent=True)
+app.config['MAIL_DEFAULT_SENDER'] = 'reporter@example.com'
+app.config['MAIL_DEFAULT_RECIPIENT'] = 'andaviaco@gmail.com'
 
 db = SQLAlchemy(app)
+mail = Mail(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
