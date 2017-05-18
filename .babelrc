@@ -1,0 +1,9 @@
+{
+    "sourceMaps": true,
+    "presets": [
+        ["latest", { "loose":true }],
+    ],
+    "plugins": [
+        ["transform-react-jsx", { "pragma": "h" }]
+    ]
+}

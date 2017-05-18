@@ -1,0 +1,28 @@
+{
+  "name": "cucei-reporter",
+  "version": "0.0.1",
+  "description": "CUCEI reporter",
+  "main": "index.js",
+  "repository": "git@github.com:andaviaco/cucei-reporter.git",
+  "author": "Andrés Ávila <andaviaco@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-latest": "^6.24.1",
+    "preact": "^8.1.0",
+    "webpack": "^2.5.1"
+  },
+  "dependencies": {
+    "axios": "^0.16.1",
+    "linkstate": "^1.0.1",
+    "preact-compat": "^3.16.0"
+  },
+  "scripts": {
+    "build": "node_modules/.bin/webpack --config webpack.config.js -p --progress",
+    "build:dev": "node_modules/.bin/webpack --config webpack.config.js -d --progress",
+    "build:watch": "node_modules/.bin/webpack --config webpack.config.js -d --progress --watch"
+  }
+}
