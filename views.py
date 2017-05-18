@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
 from flask_mail import Message
 
@@ -43,31 +43,23 @@ def logout():
 @login_required
 def report():
     if request.method == 'POST':
-        students = [
-            {
-                'code': 43123523,
-                'name': 'Juanito Perez',
-                'problem': 'Otros',
-                'comments': 'Es muy flojo',
-            },
-            {
-                'code': 63453563,
-                'name': 'Pedrito Martinez',
-                'problem': 'Faltas',
-                'comments': 'No viene',
-            },
-        ]
-        priority = PRIORITY_MAP[request.form.get('priority')]
+        data = request.get_json()
+        priority = PRIORITY_MAP[data.get('priority')]
+
         send_email(
             name=current_user.name,
-            code=request.form.get('code'),
-            subject=request.form.get('subject'),
-            section=request.form.get('section'),
+            nrc=data.get('nrc'),
+            key=data.get('key'),
+            section=data.get('section'),
+            subject=data.get('subject'),
             priority=priority.upper(),
-            students=students
+            students=data.get('students')
         )
 
-        return render_template('report.html')
+        return jsonify({
+            'message': 'success'
+        }), 201
+
     else:
         return render_template('report.html')
 
