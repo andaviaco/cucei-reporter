@@ -18,7 +18,8 @@
   "dependencies": {
     "axios": "^0.16.1",
     "linkstate": "^1.0.1",
-    "preact-compat": "^3.16.0"
+    "preact-compat": "^3.16.0",
+    "sweetalert2": "^6.6.3"
   },
   "scripts": {
     "build": "node_modules/.bin/webpack --config webpack.config.js -p --progress",
