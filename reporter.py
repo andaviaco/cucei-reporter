@@ -3,11 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from flask_mail import Mail
 
+import const
+
 app = Flask(__name__)
 
 app.config.from_envvar('REPORTER_LOCAL_SETTINGS', silent=True)
-app.config['MAIL_DEFAULT_SENDER'] = 'reporter@example.com'
-app.config['MAIL_DEFAULT_RECIPIENT'] = 'andaviaco@gmail.com'
 
 db = SQLAlchemy(app)
 mail = Mail(app)
@@ -27,6 +27,14 @@ def load_user(id):
 @app.before_request
 def before_request():
     g.user = current_user
+
+@app.template_filter('situationmap')
+def situationmap(situation):
+    try:
+        return const.SITUATION_MAP[situation]
+    except KeyError:
+        return const.SITUATION_MAP['other']
+
 
 if __name__ == '__main__':
     app.run()
