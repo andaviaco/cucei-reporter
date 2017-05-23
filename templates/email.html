@@ -257,8 +257,9 @@
                     <tr>
                       <td>
                         <p>Prioridad {{priority}} | Reporte de {{name}}</p>
+                        <p>Carrera: {{major}}</p>
                         <p>NRC: {{nrc}}</p>
-                        <p>Clave: {{key}}</p>
+                        <p>Clave: {{subjectkey}}</p>
                         <p>Sección: {{section}}</p>
                         <p>Materia: {{subject}}</p>
                       </td>
@@ -269,7 +270,7 @@
                       <thead>
                           <th>Código</th>
                           <th>Nombre</th>
-                          <th>Problema</th>
+                          <th>Situación</th>
                           <th>Comentarios</th>
                       </thead>
                       <tbody>
@@ -277,7 +278,7 @@
                           <tr>
                             <td>{{student.code}}</td>
                             <td>{{student.name}}</td>
-                            <td>{{student.problem}}</td>
+                            <td>{{student.situation | situationmap}}</td>
                             <td>{{student.comments}}</td>
                           </tr>
                           {% endfor %}
