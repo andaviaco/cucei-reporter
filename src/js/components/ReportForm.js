@@ -5,6 +5,20 @@ class ReportForm extends Component {
     render(props) {
         return (
             <form method="post" onSubmit={props.handleFormSubmit}>
+                <div className="field">
+                    <label className="label" htmlFor="major">Carrera</label>
+                    <p className="control">
+                        <input
+                            id="major"
+                            className="input"
+                            type="text"
+                            name="major"
+                            placeholder="Carrera"
+                            value={props.major}
+                            onChange={props.handleMajorChange}
+                        />
+                    </p>
+                </div>
                 <div className="columns">
                     <div className="column">
                         <div className="field">
@@ -74,6 +88,21 @@ class ReportForm extends Component {
 
                 <hr/>
 
+                <div class="message">
+                    <div class="message-header">
+                        <p>Situaciones</p>
+                    </div>
+                    <div class="message-body content">
+                        <p>Para prevenir los posibles problemas de rezago, reprodbación o abandono, de los alumnos, es conveniente atender en tiempo y forma los puntos de alerta, por lo que <strong>se recomienda reportar solo a los alumnos que estén o pueden estar en una de las situaciones siguientes.</strong></p>
+                        <ul>
+                            <li><strong>Asistencia</strong>: No asiste regularmente a clases, no ha asistido, o llega tarde a clases.</li>
+                            <li><strong>Académica</strong>: Tiene rezago académico, no hace tareas o requiere asesoría.</li>
+                            <li><strong>Diciplina</strong>: Es indiciplinado o distraido.</li>
+                            <li><strong>Otra</strong>: Otra situación de incumplimiento. Detalle la situación.</li>
+                        </ul>
+                    </div>
+                </div>
+
                 <h4 className="title is-4">Alumnos</h4>
                 <StudentsTable
                     students={props.students}
@@ -83,12 +112,18 @@ class ReportForm extends Component {
 
                 <hr/>
 
-                <h4>Prioridad</h4>
+                <h4 className="label">Prioridad</h4>
                 <span className="tag is-success is-medium">
                     <div className="field">
                         <p className="control">
                             <label className="radio">
-                                <input type="radio" name="priority" value="low" checked="checked"/>
+                                <input
+                                    type="radio"
+                                    name="priority"
+                                    value="low"
+                                    defaultChecked={true}
+                                    onChange={props.handlePriorityChange}
+                                />
                                 Baja
                             </label>
                         </p>
@@ -99,7 +134,12 @@ class ReportForm extends Component {
                     <div className="field">
                         <p className="control">
                             <label className="radio">
-                                <input type="radio" name="priority" value="medium"/>
+                                <input
+                                    type="radio"
+                                    name="priority"
+                                    value="medium"
+                                    onChange={props.handlePriorityChange}
+                                />
                                 Moderada
                             </label>
                         </p>
@@ -110,20 +150,34 @@ class ReportForm extends Component {
                     <div className="field">
                         <p className="control">
                             <label className="radio">
-                                <input type="radio" name="priority" value="high"/>
+                                <input
+                                    type="radio"
+                                    name="priority"
+                                    value="high"
+                                    onChange={props.handlePriorityChange}
+                                />
                                 Alta
                             </label>
                         </p>
                     </div>
                 </span>
 
-                <div className="field is-grouped is-pulled-right">
-                    <p className="control">
-                        <button className="button is-link">Cancelar</button>
-                    </p>
-                    <p className="control">
-                        <button className="button is-primary">Enviar</button>
-                    </p>
+                <div>
+                    <div className="field is-grouped is-pulled-right">
+                        <p className="control">
+                            <button
+                                type="button"
+                                className="button is-link"
+                            >Cancelar</button>
+                        </p>
+                        <p className="control">
+                            <button
+                                type="submit"
+                                className={`button is-primary ${props.isLoading && 'is-loading'}`}
+                            >Enviar</button>
+                        </p>
+
+                    </div>
                 </div>
 
             </form>

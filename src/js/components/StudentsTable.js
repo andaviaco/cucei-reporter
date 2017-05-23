@@ -2,17 +2,21 @@ import { h,  Component } from 'preact';
 import linkstate from 'linkstate';
 
 
-const PROBLEMS = [
+const SITUATIONS = [
     {
         label: 'Asistencia',
         value: 'nonattendance',
     },
     {
-        label: 'Practicas',
-        value: 'assignments',
+        label: 'Académica',
+        value: 'academics',
     },
     {
-        label: 'Otro',
+        label: 'Diciplina',
+        value: 'discipline',
+    },
+    {
+        label: 'Otra',
         value: 'other',
     },
 ];
@@ -32,8 +36,8 @@ class StudentsTable extends Component {
             this.props.handleStudentChange(i, student);
         }
 
-        const handleStudentProblemChange = (e) => {
-            student['problem'] = e.target.value;
+        const handleStudentSituationChange = (e) => {
+            student['situation'] = e.target.value;
 
             this.props.handleStudentChange(i, student);
         }
@@ -72,17 +76,17 @@ class StudentsTable extends Component {
                     <div className="field">
                         <p className="control">
                             <radiogroup>
-                                {PROBLEMS.map((problem, i) => {
+                                {SITUATIONS.map((situation, i) => {
                                     return (
                                         <label key={i} className="radio">
                                             <input
                                                 type="radio"
-                                                name={`problem-${i}`}
-                                                value={problem.value}
-                                                checked={student.problem === problem.value}
-                                                onChange={handleStudentProblemChange}
+                                                name={`situation-${i}`}
+                                                value={situation.value}
+                                                checked={student.situation === situation.value}
+                                                onChange={handleStudentSituationChange}
                                             />
-                                            {problem.label}
+                                            {situation.label}
                                         </label>
                                     );
                                 })}
@@ -109,11 +113,11 @@ class StudentsTable extends Component {
 
     render({students, handleAddStudentClick}) {
         return (
-            <table className="table is-striped">
+            <table className="table">
                 <thead>
                     <th>Código</th>
                     <th>Nombre</th>
-                    <th>Problemas</th>
+                    <th>Situación</th>
                     <th>Comentarios</th>
                 </thead>
                 <tbody>

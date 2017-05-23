@@ -10,12 +10,14 @@ class ReportFormContainer extends Component {
         super();
 
         this.state = {
+            major: '',
             nrc: '',
             subjectkey: '',
             section: '',
             subject: '',
             students: [{}],
             priority: 'low',
+            isLoading: false,
         };
 
         this.handleStudentChange = this.handleStudentChange.bind(this);
@@ -26,8 +28,12 @@ class ReportFormContainer extends Component {
     handleFormSubmit(e) {
         e.preventDefault();
 
+        this.setState({ 'isLoading': true });
+
         axios.post('/report', this.state)
-            .then(function (response) {
+            .then((response) => {
+                this.setState({ 'isLoading': false });
+
                 swal({
                     title: '¡Correo enviado!',
                     text: 'Da click en continuar para llenar un nuevo formulario.',
@@ -36,7 +42,7 @@ class ReportFormContainer extends Component {
                     window.location.reload();
                 });
             })
-            .catch(function (error) {
+            .catch((error) => {
 
             });
     }
@@ -63,11 +69,12 @@ class ReportFormContainer extends Component {
         return (
             <ReportForm
                 {...state}
+                handleMajorChange={linkstate(this, 'major')}
                 handleNrcChange={linkstate(this, 'nrc')}
                 handleSubjectkeyChange={linkstate(this, 'subjectkey')}
                 handleSectionChange={linkstate(this, 'section')}
                 handleSubjectChange={linkstate(this, 'subject')}
-                handlePriorityChange={linkstate(this, 'priority')}
+                handlePriorityChange={linkstate(this, 'priority', 'target.value')}
                 handleStudentChange={this.handleStudentChange}
                 handleAddStudentClick={this.handleAddStudentClick}
                 handleFormSubmit={this.handleFormSubmit}
