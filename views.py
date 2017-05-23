@@ -1,15 +1,13 @@
+# coding=utf-8
+
 from flask import render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
 from flask_mail import Message
 
+import const
 from reporter import app, mail
 from models import User
 
-PRIORITY_MAP = {
-    'low': 'baja',
-    'medium': 'media',
-    'high': 'alta',
-}
 
 @app.route('/')
 def index():
@@ -44,12 +42,22 @@ def logout():
 def report():
     if request.method == 'POST':
         data = request.get_json()
-        priority = PRIORITY_MAP[data.get('priority')]
+
+        try:
+            priority = const.PRIORITY_MAP[data.get('priority')]
+        except KeyError:
+            priority = const.PRIORITY_MAP['low']
+
+        try:
+            priority = const.PRIORITY_MAP[data.get('priority')]
+        except KeyError:
+            priority = const.PRIORITY_MAP['low']
 
         send_email(
             name=current_user.name,
+            major=data.get('major'),
             nrc=data.get('nrc'),
-            key=data.get('key'),
+            subjectkey=data.get('subjectkey'),
             section=data.get('section'),
             subject=data.get('subject'),
             priority=priority.upper(),
@@ -69,7 +77,7 @@ def page_not_found(error):
 
 
 def send_email(**data):
-    msg_subject = '[{}] Reporte de Profesor'.format(data['priority'])
+    msg_subject = u'[{}] Reporte de Estado Académico'.format(data['priority'])
     msg = Message(msg_subject,
         recipients=[app.config['MAIL_DEFAULT_RECIPIENT']],
         html=render_template('email.html', **data)
