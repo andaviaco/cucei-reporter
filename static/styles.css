@@ -3,3 +3,8 @@ textarea, .textarea {
   min-height: inherit;
   height: auto;
 }
+
+.is-centered {
+    display: flex;
+    justify-content: center;
+}

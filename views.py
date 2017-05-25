@@ -18,15 +18,18 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        code = request.form.get('password')
+        code = request.form.get('code')
+        nip = request.form.get('password', None)
         user = User.query.filter_by(code=code).first()
 
-        if user is not None:
-            login_user(user)
-            flash('Logged in successfully')
-            return redirect(url_for('report'))
+        # NIP is the last 4 characters of the code (requested by client)
+        if user is not None and nip:
+            if code.endswith(nip, -(const.NIP_LEN)):
+                login_user(user)
+                flash(u'Logged in successfully', 'success')
+                return redirect(url_for('report'))
 
-        flash('Password is invalid' , 'error')
+        flash(u'El código y/o el NIP son inválidos' , 'error')
         return redirect(url_for('index'))
     else:
         return redirect(url_for('index'))

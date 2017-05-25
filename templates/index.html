@@ -15,16 +15,35 @@
             </h2>
 
             <form class="" action="{{url_for('login')}}" method="post">
-                <div class="field has-addons has-addons-centered">
+                <div class="field is-centered">
                     <p class="control has-icons-left">
-                        <input class="input is-medium" type="password" name="password" placeholder="Código">
+                        <input class="input is-medium" type="text" name="code" placeholder="Código">
+                        <span class="icon is-medium is-left">
+                            <i class="fa fa-user"></i>
+                        </span>
+                    </p>
+                </div>
+                <div class="field is-centered">
+                    <p class="control has-icons-left">
+                        <input class="input is-medium" type="password" name="password" placeholder="NIP">
                         <span class="icon is-medium is-left">
                             <i class="fa fa-lock"></i>
                         </span>
                     </p>
+                </div>
+
+                {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                    {% if errors %}
+                        {%- for msg in errors %}
+                            <p class="help is-danger">{{ msg }}</p>
+                        {% endfor -%}
+                    {% endif %}
+                {% endwith %}
+
+                <div class="field is-centered">
                     <p class="control">
-                        <button class="button is-primary is-medium">
-                            Entrar
+                        <button class="button is-primary is-medium" type="submit">
+                            Ingresar
                         </button>
                     </p>
                 </div>

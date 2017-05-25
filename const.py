@@ -12,3 +12,5 @@ SITUATION_MAP = {
     'discipline': u'Diciplina',
     'other': u'Otra',
 }
+
+NIP_LEN = 4
