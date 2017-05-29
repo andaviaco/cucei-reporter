@@ -32,8 +32,6 @@ class ReportFormContainer extends Component {
 
         axios.post('/report', this.state)
             .then((response) => {
-                this.setState({ 'isLoading': false });
-
                 swal({
                     title: '¡Correo enviado!',
                     text: 'Da click en continuar para llenar un nuevo formulario.',
@@ -43,7 +41,14 @@ class ReportFormContainer extends Component {
                 });
             })
             .catch((error) => {
-
+                swal(
+                    'Error',
+                    'Se encontró un problema al enviar el correo.',
+                    'error'
+                );
+            })
+            .then(() => {
+                this.setState({ 'isLoading': false });
             });
     }
 
